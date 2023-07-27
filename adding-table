@@ -1,0 +1,59 @@
+
+//Soru: Kullanıcı tarafından birden fazla girilen urun bilgisin RAM de tutan, ekranda gosteren aynı zamanda ID ye veya Ada gore arama yaparak istenilen Urun bilgisinin olup olmadığını gosteren uygulamayı yazınız?(UrunID , Ad, Fiyat, Kategori) 
+            //ekstra: Kategori bilgileri combobox tan gelmeli...
+
+//----------------------------------------------------
+
+internal class Urun
+    {
+        public int UrunID { get; set; }
+        public string UrunAdi { get; set; }
+        public double Fiyat { get; set; }
+        public string Kategori { get; set; }
+    }
+
+//----------------------------------------------------
+
+public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        ArrayList _urunler;
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            _urunler = new ArrayList();
+        }
+
+        private void btnEkle_Click(object sender, EventArgs e)
+        {
+            Urun urun = new Urun();
+            urun.UrunID = int.Parse(txtID.Text);
+            urun.UrunAdi = txtAd.Text;
+            urun.Fiyat = double.Parse(txtFiyat.Text);
+            urun.Kategori = txtKategori.Text;
+
+            _urunler.Add(urun);
+
+            grdUrun.DataSource = null;
+            grdUrun.DataSource = _urunler;
+
+
+        }
+
+        private void btnIDAra_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(txtID.Text);
+
+            foreach (Urun urun in _urunler)
+            {
+                if (urun.UrunID == id)
+                {
+                    MessageBox.Show("Urun bilgileri" + urun.UrunAdi);
+                    break;
+                }
+            }
+        }
+    }
